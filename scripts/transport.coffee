@@ -1,7 +1,7 @@
 #https://github.com/github/hubot/blob/master/docs/scripting.md
 
 module.exports = (robot) ->
-  robot.hear /@test (.*)/i, (msg) -> #capture everything and forward it to API.AI
+  robot.hear /@st-bot (.*)/i, (msg) -> #capture everything and forward it to API.AI
     url = "https://api.api.ai/api/query?v=20150910&lang=en&sessionId="+createUID()+"&query="+encodeURI(msg.match[1])
     robot.logger.debug('url: '+url)
     robot.http(url)
