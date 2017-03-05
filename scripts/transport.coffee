@@ -5,7 +5,7 @@ module.exports = (robot) ->
     url = "https://api.api.ai/api/query?v=20150910&lang=en&sessionId="+createUID()+"&query="+encodeURI(res.match[1])
     robot.logger.debug('url: '+url)
     robot.http(url)
-        .headers(Accept: 'application/json', Authorization: 'Bearer 0491d2a8e09349ce83ca35ab3e257a03')
+        .headers(Accept: 'application/json', Authorization: 'Bearer '+TODO)
         .get() (err, res, body) ->
             robot.logger.debug('response: '+body)
          #res.match[1]
