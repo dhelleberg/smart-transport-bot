@@ -1,15 +1,17 @@
 #https://github.com/github/hubot/blob/master/docs/scripting.md
 
 module.exports = (robot) ->
-  robot.hear /(.*)/i, (res) -> #capture everything and forward it to API.AI
-    url = "https://api.api.ai/api/query?v=20150910&lang=en&sessionId="+createUID()+"&query="+encodeURI(res.match[1])
+  robot.hear /@test (.*)/i, (msg) -> #capture everything and forward it to API.AI
+    url = "https://api.api.ai/api/query?v=20150910&lang=en&sessionId="+createUID()+"&query="+encodeURI(msg.match[1])
     robot.logger.debug('url: '+url)
     robot.http(url)
         .headers(Accept: 'application/json', Authorization: 'Bearer '+process.env.APIAI_AUTH)
         .get() (err, res, body) ->
             robot.logger.debug('response: '+body)
-         #res.match[1]
-
+            data   = JSON.parse body
+            robot.logger.debug('response: '+JSON.stringify data.result.fulfillment)
+            msg.send data.result.fulfillment.speech
+            return
 
 uid = undefined
 HEX_CHARS =
